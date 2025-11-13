@@ -1,0 +1,42 @@
+CREATE DATABASE ControleEstoque;
+GO
+
+USE ControleEstoque;
+
+CREATE TABLE Categorias (
+    id_categoria INT PRIMARY KEY IDENTITY(1,1),
+    nome_categoria VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Produtos (
+    id_produto INT PRIMARY KEY IDENTITY(1,1),
+    nome_produto VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    quantidade_estoque INT NOT NULL,
+    estoque_minimo INT NOT NULL,
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
+);
+
+CREATE TABLE Movimentacoes (
+    id_movimentacao INT PRIMARY KEY IDENTITY(1,1),
+    id_produto INT NOT NULL,
+    tipo VARCHAR(10) CHECK (tipo IN ('entrada', 'saida')),
+    quantidade INT NOT NULL,
+    data_movimentacao DATETIME DEFAULT GETDATE(),
+    responsavel VARCHAR(100),
+    FOREIGN KEY (id_produto) REFERENCES Produtos(id_produto)
+);
+
+select * from Produtos
+select * from Categorias
+select * from Movimentacoes
+
+INSERT INTO Categorias (nome_categoria) VALUES ('Informática');
+INSERT INTO Categorias (nome_categoria) VALUES ('Eletrodomésticos');
+INSERT INTO Categorias (nome_categoria) VALUES ('Papelaria');
+
+select p.nome_produto,  m.tipo
+from movimentacoes m inner join produtos p
+on m.id_produto = p.id_produto
