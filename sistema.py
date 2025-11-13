@@ -3,7 +3,7 @@ import tkinter as tk # Importa biblioteca para interface gráfica
 from tkinter import ttk, messagebox # Importa componentes da interface gráfica
 from decimal import Decimal # Importa tipo Decimal para manipulação de valores monetários >= <=
 from PIL import Image, ImageTk
-from datetime import datetime  # Adicione no início do arquivo, se ainda não tiver
+from datetime import datetime
 
  # Carrega imagem de fundo
 
